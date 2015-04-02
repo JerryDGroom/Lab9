@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1427914981 source:c:\users\jerry groom\desktop\data structures\lab9\bstree.cpp
+	<new>
+	<iostream>
+	"BSTree.h"
+
+1427914491 c:\users\jerry groom\desktop\data structures\lab9\bstree.h
+	<stdexcept>
+	<iostream>
+

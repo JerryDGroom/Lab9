@@ -180,12 +180,12 @@ bool BSTree<DataType,KeyType>:: retrieveHelper ( BSTreeNode *p,
     }
     else if ( searchKey < p->dataItem.getKey() )
     {
-        // Key is smaller than current node. Search to left.
+        // Key is smaller than currentNode node. Search to left.
         result = retrieveHelper(p->left,searchKey,searchDataItem);
     }
     else if ( searchKey > p->dataItem.getKey() )
     {
-        // Key is larger than current node. Search to right.
+        // Key is larger than currentNode node. Search to right.
         result = retrieveHelper(p->right,searchKey,searchDataItem);
     }
     else
@@ -220,30 +220,134 @@ bool BSTree<DataType,KeyType>:: removeHelper ( BSTreeNode *&p, const KeyType& de
 
 {
     // YOUR CODE GOES HERE
-
-    //retrieveHelper(root,currentNode,deleteKey);
-
-    if(root->dataItem == deleteKey)
-    {
-        if (currentNode->right != NULL){
-            currentNode = currentNode->right;
-        }
-
-        delete currentNode;
-        // still need to finish
-        return true;
-    }
-    else if(deleteKey < currentNode->dataItem)
-    {
-        currentNode = currentNode->left;
-        removeHelper(currentNode,deleteKey);
-    }
-    else (deleteKey > currentNode->dataItem);
-    {
-        currentNode = currentNode->right;
-        removeHelper(currentNode,deleteKey);
-    }
+    bool found = false;
+    if(currentNode==NULL)
+        cout<<"Tree is empty"<<endl;
     return false;
+    while(currentNode!=NULL){
+    }
+        if(p == 0)
+        {
+            cout<<"Tree is empty"<<endl;
+            return false;
+        }
+        else
+        {
+            predecessor = currentNode;
+            if(deleteKey > currentNode->dataItem)
+            {
+                currentNode = currentNode->right;
+            }
+            else
+            {
+                currentNode = currentNode->left;
+            }
+        }
+    if(!found)
+    {
+        cout<< deleteKey <<" not in Tree."<<endl;
+        return;
+    }
+    // CASE 1: Removing a node with a single child
+    if((currentNode->left==NULL && currentNode->right != NULL) || (currentNode->left != NULL && currentNode->right==NULL))
+    {
+        // Right Leaf Present, No Left Leaf
+        if(currentNode->left==NULL && currentNode->right != NULL)
+        {
+            // If predecessor's left tree equals Node n
+            if(predecessor->left==currentNode)
+            {
+                // then predecessor's left tree becomes n's right tree
+                // and delete n
+                predecessor->left=currentNode->right;
+                delete currentNode;
+                currentNode=NULL;
+                cout<< deleteKey <<" has been removed from the Tree."<<endl;
+            }
+            // If predecessor's right tree equals Node n
+            else
+            {
+                // then predecessor's right tree becomes n's right tree
+                // and delete n
+                predecessor->right=currentNode->right;
+                delete currentNode;
+                currentNode=NULL;
+                cout<< deleteKey <<" has been removed from the Tree."<<endl;
+            }
+        }
+        else // Left Leaf Present, No Right Leaf Present
+        {
+            if(predecessor->left==currentNode)
+            {
+                predecessor->left=currentNode->left;
+                delete currentNode;
+                currentNode=NULL;
+                cout<< deleteKey <<" has been removed from the Tree."<<endl;
+            }
+            else
+            {
+                predecessor->right=currentNode->left;
+                delete currentNode;
+                currentNode=NULL;
+                cout<< deleteKey <<" has been removed from the Tree."<<endl;
+            }
+        }
+        return;
+    }
+    // CASE 2: Removing a Leaf Node
+    if(currentNode->left==NULL && currentNode->right==NULL)
+    {
+        if(predecessor->left==currentNode)
+            predecessor->left=NULL;
+        else
+            predecessor->right=NULL;
+        delete currentNode;
+        cout<< deleteKey <<" has been removed from the Tree."<<endl;
+        return;
+    }
+    // CASE 3: Node has two children
+    // Replace Node with smallest value in right subtree
+    if(currentNode->left != NULL && currentNode->right != NULL)
+    {
+        BSTreeNode* check = currentNode->right;
+        if((currentNode->left==NULL)&&(currentNode->right==NULL))
+        {
+            currentNode=check;
+            delete check;
+            currentNode->right==NULL;
+            cout<< deleteKey <<" has been removed from the Tree."<<endl;
+        }
+        else // Right child has children
+        {
+            // If the node's right child has a left child
+            // Move all the way down left to locate smallest element
+            if((currentNode->right)->left!=NULL)
+            {
+                BSTreeNode* leftcurrentNode;
+                BSTreeNode* leftcurrentNodePred;
+                leftcurrentNodePred=currentNode->right;
+                leftcurrentNode=(currentNode->right)->left;
+                while(leftcurrentNode->left != NULL)
+                {
+                    leftcurrentNodePred=leftcurrentNode;
+                    leftcurrentNode=leftcurrentNode->left;
+                }
+                currentNode->data=leftcurrentNode->data;
+                delete leftcurrentNode;
+                leftcurrentNodePred->left==NULL;
+                cout<< deleteKey <<" has been removed from the Tree."<<endl;
+            }
+            else
+            {
+                BSTreeNode* temp=currentNode->right;
+                currentNode->data=temp->data;
+                currentNode->right=temp->right;
+                delete temp;
+                cout<< deleteKey <<" has been removed from the Tree."<<endl;
+            }
+        }
+        return;
+    }
 }
 
 

@@ -32,7 +32,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="main.cpp" />
+		<Unit filename="BSTree.cpp" />
+		<Unit filename="BSTree.h" />
+		<Unit filename="test9.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

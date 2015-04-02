@@ -73,6 +73,7 @@ class BSTree                                     // KeyType : key field
     // Data member
     BSTreeNode *root;   // Pointer to the root node
     BSTreeNode *currentNode; // Pointer to the current node
+    BSTreeNode *predecessor; // Pointer to the predecessor node
 };
 
 #endif	// define BSTREE_H

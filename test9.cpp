@@ -56,7 +56,7 @@ int main()
         {
           case 'P' : case 'p' :
                print_help();
-               break; 
+               break;
 
           case '+' :                                  // insert
                testData.setKey(inputKey);
@@ -125,7 +125,7 @@ int main()
         }
     }
     while ( cin && ( cmd != 'Q' ) && ( cmd != 'q' ) );
-    
+
     if ( !cin ) {
 	cerr << "Error in console input. Exiting." << endl;
     }
@@ -144,27 +144,27 @@ void print_help() {
     cout << "  K    : Write keys in ascending order" << endl;
     cout << "  C    : Clear the tree" << endl;
     cout << "  E    : Empty tree?" << endl;
-    cout << "  G    : Get count of nodes          " 
+    cout << "  G    : Get count of nodes          "
 #if LAB9_TEST1
-         << "(Active   : " 
+         << "(Active   : "
 #else
-         << "(Inactive : " 
+         << "(Inactive : "
 #endif
          << "In-lab Exercise 2)" << endl;
 
-    cout << "  H    : Height                      " 
+    cout << "  H    : Height                      "
 #if LAB9_TEST2
-         << "(Active   : " 
+         << "(Active   : "
 #else
-         << "(Inactive : " 
+         << "(Inactive : "
 #endif
          << "In-lab Exercise 2)" << endl;
 
-    cout << "  <key : Write keys that are < key   " 
+    cout << "  <key : Write keys that are < key   "
 #if LAB9_TEST3
-         << "(Active   : " 
+         << "(Active   : "
 #else
-         << "(Inactive : " 
+         << "(Inactive : "
 #endif
          << "In-lab Exercise 3)" << endl;
     cout << "  Q    : Quit the test program" << endl;

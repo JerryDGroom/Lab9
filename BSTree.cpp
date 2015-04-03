@@ -220,136 +220,44 @@ bool BSTree<DataType,KeyType>:: removeHelper ( BSTreeNode *&p, const KeyType& de
 
 {
     // YOUR CODE GOES HERE
-    bool found = false;
-    if(currentNode==NULL)
-        cout<<"Tree is empty"<<endl;
-    return false;
-    while(currentNode!=NULL){
-    }
-        if(p == 0)
-        {
-            cout<<"Tree is empty"<<endl;
-            return false;
-        }
-        else
-        {
-            predecessor = currentNode;
-            if(deleteKey > currentNode->dataItem)
-            {
-                currentNode = currentNode->right;
-            }
-            else
-            {
-                currentNode = currentNode->left;
-            }
-        }
-    if(!found)
-    {
-        cout<< deleteKey <<" not in Tree."<<endl;
-        return;
-    }
-    // CASE 1: Removing a node with a single child
-    if((currentNode->left==NULL && currentNode->right != NULL) || (currentNode->left != NULL && currentNode->right==NULL))
-    {
-        // Right Leaf Present, No Left Leaf
-        if(currentNode->left==NULL && currentNode->right != NULL)
-        {
-            // If predecessor's left tree equals Node n
-            if(predecessor->left==currentNode)
-            {
-                // then predecessor's left tree becomes n's right tree
-                // and delete n
-                predecessor->left=currentNode->right;
-                delete currentNode;
-                currentNode=NULL;
-                cout<< deleteKey <<" has been removed from the Tree."<<endl;
-            }
-            // If predecessor's right tree equals Node n
-            else
-            {
-                // then predecessor's right tree becomes n's right tree
-                // and delete n
-                predecessor->right=currentNode->right;
-                delete currentNode;
-                currentNode=NULL;
-                cout<< deleteKey <<" has been removed from the Tree."<<endl;
-            }
-        }
-        else // Left Leaf Present, No Right Leaf Present
-        {
-            if(predecessor->left==currentNode)
-            {
-                predecessor->left=currentNode->left;
-                delete currentNode;
-                currentNode=NULL;
-                cout<< deleteKey <<" has been removed from the Tree."<<endl;
-            }
-            else
-            {
-                predecessor->right=currentNode->left;
-                delete currentNode;
-                currentNode=NULL;
-                cout<< deleteKey <<" has been removed from the Tree."<<endl;
-            }
-        }
-        return;
-    }
-    // CASE 2: Removing a Leaf Node
-    if(currentNode->left==NULL && currentNode->right==NULL)
-    {
-        if(predecessor->left==currentNode)
-            predecessor->left=NULL;
-        else
-            predecessor->right=NULL;
-        delete currentNode;
-        cout<< deleteKey <<" has been removed from the Tree."<<endl;
-        return;
-    }
-    // CASE 3: Node has two children
-    // Replace Node with smallest value in right subtree
-    if(currentNode->left != NULL && currentNode->right != NULL)
-    {
-        BSTreeNode* check = currentNode->right;
-        if((currentNode->left==NULL)&&(currentNode->right==NULL))
-        {
-            currentNode=check;
-            delete check;
-            currentNode->right==NULL;
-            cout<< deleteKey <<" has been removed from the Tree."<<endl;
-        }
-        else // Right child has children
-        {
-            // If the node's right child has a left child
-            // Move all the way down left to locate smallest element
-            if((currentNode->right)->left!=NULL)
-            {
-                BSTreeNode* leftcurrentNode;
-                BSTreeNode* leftcurrentNodePred;
-                leftcurrentNodePred=currentNode->right;
-                leftcurrentNode=(currentNode->right)->left;
-                while(leftcurrentNode->left != NULL)
-                {
-                    leftcurrentNodePred=leftcurrentNode;
-                    leftcurrentNode=leftcurrentNode->left;
-                }
-                currentNode->data=leftcurrentNode->data;
-                delete leftcurrentNode;
-                leftcurrentNodePred->left==NULL;
-                cout<< deleteKey <<" has been removed from the Tree."<<endl;
-            }
-            else
-            {
-                BSTreeNode* temp=currentNode->right;
-                currentNode->data=temp->data;
-                currentNode->right=temp->right;
-                delete temp;
-                cout<< deleteKey <<" has been removed from the Tree."<<endl;
-            }
-        }
-        return;
-    }
-}
+BSTreeNode *deletePtr;  // Pointer node to delete
 
+    int result; // this allows a bool and non-bool answer
+
+    if ( p == 0 )
+       result = false;
+    else if ( deleteKey < p->dataItem.getKey() )
+       result = removeHelper(p->left,deleteKey);
+    else if ( deleteKey > p->dataItem.getKey() )
+       result = removeHelper(p->right,deleteKey);
+    else
+    {
+       deletePtr = p;
+       if ( p->left == 0 )
+       {
+           p = p->right;
+	   delete deletePtr;
+       }
+       else if ( p->right == 0 )
+       {
+           p = p->left;
+	   delete deletePtr;
+       }
+       else
+       {
+
+	   BSTreeNode* tempHolder = p->left;
+	   while( tempHolder->right ) {
+		tempHolder = tempHolder->right;
+	   }
+	   p->dataItem = tempHolder->dataItem;
+	   removeHelper( p->left, tempHolder->dataItem.getKey());
+       }
+       result = true;
+    }
+
+    return result;
+}
 
 
 //--------------------------------------------------------------------
@@ -375,104 +283,104 @@ void BSTree<DataType,KeyType>:: writeKeysHelper ( BSTreeNode *p ) const
 {
     if ( p != 0 )
     {
-        // YOUR CODE GOES HERE
-
-
-
+       // YOUR CODE GOES HERE
+        writeKeysHelper(p->left); //write keys to left
+        cout << p->dataItem.getKey() << " ";
+        writeKeysHelper(p->right);//write keys to right
     }
-}
-
-//--------------------------------------------------------------------
-
-template < typename DataType, typename KeyType >
-void BSTree<DataType,KeyType>:: clear ()
-
-// Removes all the nodes from a tree.
-
-{
-    clearHelper(root);
-    root = 0;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-template < typename DataType, typename KeyType >
-void BSTree<DataType,KeyType>:: clearHelper ( BSTreeNode *p )
+    template < typename DataType, typename KeyType >
+    void BSTree<DataType,KeyType>:: clear ()
+
+// Removes all the nodes from a tree.
+
+    {
+        clearHelper(root);
+        root = 0;
+    }
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    template < typename DataType, typename KeyType >
+    void BSTree<DataType,KeyType>:: clearHelper ( BSTreeNode *p )
 
 // Recursive helper for clear. Clears the subtree pointed to by p.
 
-{
-    if ( p != 0 )
     {
-        // Use post-order traversal. Otherwise get into trouble by
-        // referencing p->left and/or p->right after p had been deallocated.
-        clearHelper(p->left);
-        clearHelper(p->right);
-        delete p;
+        if ( p != 0 )
+        {
+            // Use post-order traversal. Otherwise get into trouble by
+            // referencing p->left and/or p->right after p had been deallocated.
+            clearHelper(p->left);
+            clearHelper(p->right);
+            delete p;
+        }
     }
-}
 
 //--------------------------------------------------------------------
 
-template < typename DataType, typename KeyType >
-bool BSTree<DataType,KeyType>:: isEmpty () const
+    template < typename DataType, typename KeyType >
+    bool BSTree<DataType,KeyType>:: isEmpty () const
 
 // Returns true if a tree is empty. Otherwise returns false.
 
-{
-    return root == 0;
-}
+    {
+        return root == 0;
+    }
 
 //--------------------------------------------------------------------
 
-template < typename DataType, typename KeyType >
-void BSTree<DataType,KeyType>:: showStructure () const
+    template < typename DataType, typename KeyType >
+    void BSTree<DataType,KeyType>:: showStructure () const
 
 // Outputs the keys in a binary search tree. The tree is output
 // rotated counterclockwise 90 degrees from its conventional
 // orientation using a "reverse" inorder traversal. This operation is
 // intended for testing and debugging purposes only.
 
-{
-    if ( root == 0 )
-        cout << "Empty tree" << endl;
-    else
     {
-        cout << endl;
-        showHelper(root,1);
-        cout << endl;
+        if ( root == 0 )
+            cout << "Empty tree" << endl;
+        else
+        {
+            cout << endl;
+            showHelper(root,1);
+            cout << endl;
+        }
     }
-}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-template < typename DataType, typename KeyType >
-void BSTree<DataType,KeyType>:: showHelper ( BSTreeNode *p,
-        int level             ) const
+    template < typename DataType, typename KeyType >
+    void BSTree<DataType,KeyType>:: showHelper ( BSTreeNode *p,
+            int level             ) const
 
 // Recursive helper for showStructure.
 // Outputs the subtree whose root node is pointed to by p.
 // Parameter level is the level of this node within the tree.
 
-{
-    int j;   // Loop counter
-
-    if ( p != 0 )
     {
-        showHelper(p->right,level+1);         // Output right subtree
-        for ( j = 0 ; j < level ; j++ )    // Tab over to level
-            cout << "\t";
-        cout << " " << p->dataItem.getKey();   // Output key
-        if ( ( p->left != 0 ) &&           // Output "connector"
-                ( p->right != 0 ) )
-            cout << "<";
-        else if ( p->right != 0 )
-            cout << "/";
-        else if ( p->left != 0 )
-            cout << "\\";
-        cout << endl;
-        showHelper(p->left,level+1);          // Output left subtree
+        int j;   // Loop counter
+
+        if ( p != 0 )
+        {
+            showHelper(p->right,level+1);         // Output right subtree
+            for ( j = 0 ; j < level ; j++ )    // Tab over to level
+                cout << "\t";
+            cout << " " << p->dataItem.getKey();   // Output key
+            if ( ( p->left != 0 ) &&           // Output "connector"
+                    ( p->right != 0 ) )
+                cout << "<";
+            else if ( p->right != 0 )
+                cout << "/";
+            else if ( p->left != 0 )
+                cout << "\\";
+            cout << endl;
+            showHelper(p->left,level+1);          // Output left subtree
+        }
     }
-}
 
 #endif

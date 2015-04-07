@@ -34,7 +34,8 @@
 		</Compiler>
 		<Unit filename="BSTree.cpp" />
 		<Unit filename="BSTree.h" />
-		<Unit filename="test9.cpp" />
+		<Unit filename="accounts.dat" />
+		<Unit filename="database.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

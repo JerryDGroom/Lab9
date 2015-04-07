@@ -6,7 +6,7 @@ Binary Search Tree Lab || Group Project                 test9.cpp
 
 Test program for the operations in the Binary Search Tree ADT
 
-Jerry Groom & Dani Breon
+Jerry Groom & Dani Breon 
 4/12/2015
 
 *******************************************************************

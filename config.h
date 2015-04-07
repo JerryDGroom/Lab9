@@ -1,7 +1,7 @@
 /**
  * BSTree class (Lab 9) configuration file.
  * Activate test 'N' by defining the corresponding LAB9_TESTN to have the value 1.
- * Deactive test 'N' by setting the value to 0.
+ * Deactive test 'N' by setting the value to 0
  */
 
 #define LAB9_TEST1	0		// Programming Exercise 2: getCount

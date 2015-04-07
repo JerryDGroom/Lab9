@@ -1,12 +1,14 @@
-//--------------------------------------------------------------------
-//
-//  Laboratory 9                                    BSTree.h
-//
-//  Class declarations for the linked implementation of the Binary
-//  Search Tree ADT -- including the recursive helpers of the
-//  public member functions
-//
-//--------------------------------------------------------------------
+/*
+*******************************************************************
+
+Laboratory 9
+Binary Search Tree Lab || Group Project                 BSTree.cpp
+
+Jerry Groom & Dani Breon
+4/12/2015
+
+*******************************************************************
+*/
 
 #ifndef BSTREE_H
 #define BSTREE_H

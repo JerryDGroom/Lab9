@@ -1,9 +1,14 @@
-//--------------------------------------------------------------------
-//
-//  Laboratory 9                                            BSTree.cpp
-//
-//
-//--------------------------------------------------------------------
+/*
+*******************************************************************
+
+Laboratory 9
+Binary Search Tree Lab || Group Project                 BSTree.cpp
+
+Jerry Groom & Dani Breon
+4/12/2015
+
+*******************************************************************
+*/
 
 #ifndef BSTREE_CPP
 #define BSTREE_CPP
@@ -224,39 +229,41 @@ BSTreeNode *deletePtr;  // Pointer node to delete
 
     int result; // this allows a bool and non-bool answer
 
-    if ( p == 0 )
+    if ( p == NULL )
        result = false;
-    else if ( deleteKey < p->dataItem.getKey() )
-       result = removeHelper(p->left,deleteKey);
-    else if ( deleteKey > p->dataItem.getKey() )
-       result = removeHelper(p->right,deleteKey);
+    else if ( deleteKey < p->dataItem.getKey() )    // search function to see if deleteKey is Less than current nodes data Item.
+       result = removeHelper(p->left,deleteKey);    // if if it is, recursively send the left item child through the remove function.
+    else if ( deleteKey > p->dataItem.getKey() )    // search function to see if deleteKey is Greater than current nodes data Item.
+       result = removeHelper(p->right,deleteKey);   // if if it is, recursively send the right child item back through the remove function
     else
     {
-       deletePtr = p;
-       if ( p->left == 0 )
+       deletePtr = p;           // copy node to deletePtr
+       if ( p->left == NULL )      // check if node has a left child
        {
-           p = p->right;
-	   delete deletePtr;
+           p = p->right;        // if it does, then node becomes the right child.
+	   delete deletePtr;        // then its free to delete the current node.
        }
-       else if ( p->right == 0 )
+       else if ( p->right == NULL ) //check if node has a right child
        {
-           p = p->left;
-	   delete deletePtr;
+           p = p->left;          // if it does, then node becomes the left child
+	   delete deletePtr;         // then its free to delete the current node.
        }
-       else
+       else         // If none of these were true, go through the next set of steps
        {
 
-	   BSTreeNode* tempHolder = p->left;
-	   while( tempHolder->right ) {
-		tempHolder = tempHolder->right;
+	   BSTreeNode* tempHolder = p->left;   // Temporary holder for current nodes left value.
+	   while( tempHolder->right ) {        // while node has a right child,
+		tempHolder = tempHolder->right;    // copy to tempholders right child to tempholder.
 	   }
-	   p->dataItem = tempHolder->dataItem;
-	   removeHelper( p->left, tempHolder->dataItem.getKey());
+	   p->dataItem = tempHolder->dataItem; // copy tempHolders data item to current nodes data item
+	   removeHelper( p->left, tempHolder->dataItem.getKey()); // Recursive function, send back current nodes left, and tempHolders dataItem
+                                                              // so it can run through the cod again, until it reaches base case.
        }
-       result = true;
+       result = true;       // result is set to true
     }
 
-    return result;
+    return result; // this allows you to return a single response depending on which path the
+                   // code ends at. It could be result = true, or result = false.
 }
 
 

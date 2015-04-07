@@ -1,19 +1,19 @@
 # depslib dependency file v1.0
-1428025147 source:c:\users\jerry groom\desktop\data structures\lab9\bstree.cpp
+1428444886 source:c:\users\jerry groom\desktop\data structures\lab9\bstree.cpp
 	<new>
 	<iostream>
 	"BSTree.h"
 
-1428024668 c:\users\jerry groom\desktop\data structures\lab9\bstree.h
+1428444952 c:\users\jerry groom\desktop\data structures\lab9\bstree.h
 	<stdexcept>
 	<iostream>
 
-1428024363 source:c:\users\jerry groom\desktop\data structures\lab9\test9.cpp
+1428445108 source:c:\users\jerry groom\desktop\data structures\lab9\test9.cpp
 	<iostream>
 	"BSTree.cpp"
 	"config.h"
 
-1428025147 c:\users\jerry groom\desktop\data structures\lab9\bstree.cpp
+1428446546 c:\users\jerry groom\desktop\data structures\lab9\bstree.cpp
 	<new>
 	<iostream>
 	"BSTree.h"

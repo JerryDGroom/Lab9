@@ -32,10 +32,6 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="BSTree.cpp" />
-		<Unit filename="BSTree.h" />
-		<Unit filename="accounts.dat" />
-		<Unit filename="database.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

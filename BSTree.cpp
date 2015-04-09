@@ -4,8 +4,8 @@
 Laboratory 9
 Binary Search Tree Lab || Group Project                 BSTree.cpp
 
-Jerry Groom & Dani Breon 
-4/12/2015
+Jerry Groom & Dani Breon
+4/09/2015
 
 *******************************************************************
 */
@@ -225,45 +225,46 @@ bool BSTree<DataType,KeyType>:: removeHelper ( BSTreeNode *&p, const KeyType& de
 
 {
     // YOUR CODE GOES HERE
-BSTreeNode *deletePtr;  // Pointer node to delete
+    BSTreeNode *deletePtr;  // Pointer node to delete
 
     int result; // this allows a bool and non-bool answer
 
     if ( p == NULL )
-       result = false;
+        result = false;     // If the code ends here we get a final bool of False for the result.
     else if ( deleteKey < p->dataItem.getKey() )    // search function to see if deleteKey is Less than current nodes data Item.
-       result = removeHelper(p->left,deleteKey);    // if if it is, recursively send the left item child through the remove function.
+        result = removeHelper(p->left,deleteKey);    // if if it is, recursively send the left item child through the remove function.
     else if ( deleteKey > p->dataItem.getKey() )    // search function to see if deleteKey is Greater than current nodes data Item.
-       result = removeHelper(p->right,deleteKey);   // if if it is, recursively send the right child item back through the remove function
+        result = removeHelper(p->right,deleteKey);   // if if it is, recursively send the right child item back through the remove function
     else
     {
-       deletePtr = p;           // copy node to deletePtr
-       if ( p->left == NULL )      // check if node has a left child
-       {
-           p = p->right;        // if it does, then node becomes the right child.
-	   delete deletePtr;        // then its free to delete the current node.
-       }
-       else if ( p->right == NULL ) //check if node has a right child
-       {
-           p = p->left;          // if it does, then node becomes the left child
-	   delete deletePtr;         // then its free to delete the current node.
-       }
-       else         // If none of these were true, go through the next set of steps
-       {
+        deletePtr = p;           // copy node to deletePtr
+        if ( p->left == NULL )      // check if node has a left child
+        {
+            p = p->right;        // if it does, then node becomes the right child.
+            delete deletePtr;        // then its free to delete the current node.
+        }
+        else if ( p->right == NULL ) //check if node has a right child
+        {
+            p = p->left;          // if it does, then node becomes the left child
+            delete deletePtr;         // then its free to delete the current node.
+        }
+        else         // If none of these were true, go through the next set of steps
+        {
 
-	   BSTreeNode* tempHolder = p->left;   // Temporary holder for current nodes left value.
-	   while( tempHolder->right ) {        // while node has a right child,
-		tempHolder = tempHolder->right;    // copy to tempholders right child to tempholder.
-	   }
-	   p->dataItem = tempHolder->dataItem; // copy tempHolders data item to current nodes data item
-	   removeHelper( p->left, tempHolder->dataItem.getKey()); // Recursive function, send back current nodes left, and tempHolders dataItem
-                                                              // so it can run through the cod again, until it reaches base case.
-       }
-       result = true;       // result is set to true
+            BSTreeNode* tempHolder = p->left;   // Temporary holder for current node's left value.
+            while( tempHolder->right )          // while node has a right child,
+            {
+                tempHolder = tempHolder->right;    // copy to tempholder's right child to tempholder.
+            }
+            p->dataItem = tempHolder->dataItem; // copy tempHolders data item to current nodes data item
+            removeHelper( p->left, tempHolder->dataItem.getKey());  // Recursive function, send back current nodes left, and tempHolders dataItem
+                                                                    // so it can run through the cod again, until it reaches base case.
+        }
+        result = true;       // result is set to true
     }
 
-    return result; // this allows you to return a single response depending on which path the
-                   // code ends at. It could be result = true, or result = false.
+    return result;  // this allows you to return a single response depending on which path the
+                    // code ends at. It could be result = true, or result = false.
 }
 
 
@@ -290,7 +291,7 @@ void BSTree<DataType,KeyType>:: writeKeysHelper ( BSTreeNode *p ) const
 {
     if ( p != 0 )
     {
-       // YOUR CODE GOES HERE
+        // YOUR CODE GOES HERE
         writeKeysHelper(p->left); //write keys to left
         cout << p->dataItem.getKey() << " ";
         writeKeysHelper(p->right);//write keys to right
@@ -299,95 +300,95 @@ void BSTree<DataType,KeyType>:: writeKeysHelper ( BSTreeNode *p ) const
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    template < typename DataType, typename KeyType >
-    void BSTree<DataType,KeyType>:: clear ()
+template < typename DataType, typename KeyType >
+void BSTree<DataType,KeyType>:: clear ()
 
 // Removes all the nodes from a tree.
 
-    {
-        clearHelper(root);
-        root = 0;
-    }
+{
+    clearHelper(root);
+    root = 0;
+}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    template < typename DataType, typename KeyType >
-    void BSTree<DataType,KeyType>:: clearHelper ( BSTreeNode *p )
+template < typename DataType, typename KeyType >
+void BSTree<DataType,KeyType>:: clearHelper ( BSTreeNode *p )
 
 // Recursive helper for clear. Clears the subtree pointed to by p.
 
+{
+    if ( p != 0 )
     {
-        if ( p != 0 )
-        {
-            // Use post-order traversal. Otherwise get into trouble by
-            // referencing p->left and/or p->right after p had been deallocated.
-            clearHelper(p->left);
-            clearHelper(p->right);
-            delete p;
-        }
+        // Use post-order traversal. Otherwise get into trouble by
+        // referencing p->left and/or p->right after p had been deallocated.
+        clearHelper(p->left);
+        clearHelper(p->right);
+        delete p;
     }
+}
 
 //--------------------------------------------------------------------
 
-    template < typename DataType, typename KeyType >
-    bool BSTree<DataType,KeyType>:: isEmpty () const
+template < typename DataType, typename KeyType >
+bool BSTree<DataType,KeyType>:: isEmpty () const
 
 // Returns true if a tree is empty. Otherwise returns false.
 
-    {
-        return root == 0;
-    }
+{
+    return root == 0;
+}
 
 //--------------------------------------------------------------------
 
-    template < typename DataType, typename KeyType >
-    void BSTree<DataType,KeyType>:: showStructure () const
+template < typename DataType, typename KeyType >
+void BSTree<DataType,KeyType>:: showStructure () const
 
 // Outputs the keys in a binary search tree. The tree is output
 // rotated counterclockwise 90 degrees from its conventional
 // orientation using a "reverse" inorder traversal. This operation is
 // intended for testing and debugging purposes only.
 
+{
+    if ( root == 0 )
+        cout << "Empty tree" << endl;
+    else
     {
-        if ( root == 0 )
-            cout << "Empty tree" << endl;
-        else
-        {
-            cout << endl;
-            showHelper(root,1);
-            cout << endl;
-        }
+        cout << endl;
+        showHelper(root,1);
+        cout << endl;
     }
+}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    template < typename DataType, typename KeyType >
-    void BSTree<DataType,KeyType>:: showHelper ( BSTreeNode *p,
-            int level             ) const
+template < typename DataType, typename KeyType >
+void BSTree<DataType,KeyType>:: showHelper ( BSTreeNode *p,
+        int level             ) const
 
 // Recursive helper for showStructure.
 // Outputs the subtree whose root node is pointed to by p.
 // Parameter level is the level of this node within the tree.
 
-    {
-        int j;   // Loop counter
+{
+    int j;   // Loop counter
 
-        if ( p != 0 )
-        {
-            showHelper(p->right,level+1);         // Output right subtree
-            for ( j = 0 ; j < level ; j++ )    // Tab over to level
-                cout << "\t";
-            cout << " " << p->dataItem.getKey();   // Output key
-            if ( ( p->left != 0 ) &&           // Output "connector"
-                    ( p->right != 0 ) )
-                cout << "<";
-            else if ( p->right != 0 )
-                cout << "/";
-            else if ( p->left != 0 )
-                cout << "\\";
-            cout << endl;
-            showHelper(p->left,level+1);          // Output left subtree
-        }
+    if ( p != 0 )
+    {
+        showHelper(p->right,level+1);         // Output right subtree
+        for ( j = 0 ; j < level ; j++ )    // Tab over to level
+            cout << "\t";
+        cout << " " << p->dataItem.getKey();   // Output key
+        if ( ( p->left != 0 ) &&           // Output "connector"
+                ( p->right != 0 ) )
+            cout << "<";
+        else if ( p->right != 0 )
+            cout << "/";
+        else if ( p->left != 0 )
+            cout << "\\";
+        cout << endl;
+        showHelper(p->left,level+1);          // Output left subtree
     }
+}
 
 #endif
